@@ -1,5 +1,8 @@
 package com.example.localdatabasecheckbox.repository;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,6 +13,7 @@ import com.example.localdatabasecheckbox.services.RetrofitInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Tag;
 
 public class Repository {
 
@@ -27,11 +31,14 @@ public class Repository {
 
                 QuestionList questionList= response.body();
 
+
+
                 data.setValue(questionList);
             }
 
             @Override
             public void onFailure(Call<QuestionList> call, Throwable t) {
+
 
             }
         });
