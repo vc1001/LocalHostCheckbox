@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@drawable/download"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/txtquizapp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Quiz App"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text=""
+            android:textColor="@color/design_default_color_error"
+            android:textSize="30sp"
+            android:layout_below="@id/txtquizapp"
+            android:textStyle="bold" />
+
+
+            <CheckBox
+                android:id="@+id/checkbox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:layout_below="@id/txtQuestion"/>
+
+            <CheckBox
+                android:id="@+id/checkbox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:layout_below="@id/checkbox1" />
+
+            <CheckBox
+                android:id="@+id/checkbox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:textSize="30sp"
+                android:layout_below="@id/checkbox2"
+                android:textColor="@color/material_dynamic_primary40" />
+
+        <CheckBox
+            android:id="@+id/checkbox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/checkbox3"
+            android:text=""
+            android:textColor="@color/material_dynamic_primary40"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+
+
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checkbox4"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:text="NextQuestion" />
+
+        <TextView
+            android:id="@+id/txtResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnNext"
+            android:layout_alignParentBottom="true"
+            android:text=""
+            android:textColor="@color/material_dynamic_tertiary30"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</layout>
