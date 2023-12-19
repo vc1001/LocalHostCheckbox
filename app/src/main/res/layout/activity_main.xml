@@ -95,7 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/btnNext"
             android:layout_alignParentBottom="true"
-            android:text=""
+            android:text="Correct Answers:"
+            android:layout_margin="10dp"
             android:textColor="@color/material_dynamic_tertiary30"
             android:textSize="20sp"
             android:textStyle="bold" />

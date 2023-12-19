@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
     List<Question> questionList;
 
-    static int result=0;
-    static  int totalQuestions=0;
+    static int result = 0;
+    static int totalQuestions = 0;
 
-    int i=0;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,65 +47,70 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ShownextQuestion();
+                if (binding.btnNext.getText().toString().equals("Done")) {
+                    Intent intent = new Intent(MainActivity.this, Result.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
 
         });
     }
 
-        private void DisplayFirstQuestion(){
-            viewModel.getLiveData().observe(this, new Observer<QuestionList>() {
-                @Override
-                public void onChanged(QuestionList questions) {
-                    questionList=questions;
+    private void DisplayFirstQuestion() {
+        viewModel.getLiveData().observe(this, new Observer<QuestionList>() {
+            @Override
+            public void onChanged(QuestionList questions) {
+                questionList = questions;
 
-                    binding.txtQuestion.setText("Question1:"+questions.get(0).getQuestion());
-                    binding.checkbox1.setText(questions.get(0).getOption1());
-                    binding.checkbox2.setText(questions.get(0).getOption2());
-                    binding.checkbox3.setText(questions.get(0).getOption3());
-                    binding.checkbox4.setText(questions.get(0).getOption4());
-                }
-            });
-        }
-        private void ShownextQuestion(){
-            if(binding.btnNext.getText().toString().equals("Done")){
-                Intent intent=new Intent(MainActivity.this, Result.class);
-                startActivity(intent);
-                finish();
+                displayQuestion(0);
+
             }
-            int selectedOptionsCount = getSelectedOptionsCount();
-            if ( selectedOptionsCount>1) {
-                List<CheckBox> selectedCheckboxes = getSelectedCheckboxes();
-                if (questionList.size() - 1 > 0) {
-                    totalQuestions = questionList.size();
+        });
+    }
 
-                    String correctOption1 = questionList.get(i).getCorrectOption1();
-                    String correctOption2 = questionList.get(i).getCorrectOption2();
-                    if (areOptionsCorrect(selectedCheckboxes, correctOption1, correctOption2)) {
-                        result++;
+    private void ShownextQuestion() {
+        int selectedOptionsCount = getSelectedOptionsCount();
+        if (selectedOptionsCount == 2) {
+            List<CheckBox> selectedCheckboxes = getSelectedCheckboxes();
+            if (i < questionList.size()) {
+                String correctOption1 = questionList.get(i).getCorrectOption1();
+                String correctOption2 = questionList.get(i).getCorrectOption2();
+                if (areOptionsCorrect(selectedCheckboxes, correctOption1, correctOption2)) {
+                    result++;
+                    binding.txtResult.setText("Correct Answers:" + result);
 
-                    }
                 }
-                if (i == 0) {
                     i++;
-                }
 
-                displayQuestion();
-                if (i == (questionList.size() - 1)) {
-                    binding.btnNext.setText("Done");
-                }
-                clearAllCheckboxes();
-                i++;
-            } else {
-                Toast.makeText(this, "Please select exactly two answers", Toast.LENGTH_SHORT).show();
+                displayQuestion(i);
             }
+
+
+
+    } else {
+        Toast.makeText(this, "Please select exactly two answers", Toast.LENGTH_SHORT).show();
+    }
+
+}
+
+
+    private void displayQuestion(int index) {
+        if (questionList.size()  > index) {
+            totalQuestions = questionList.size();
+            binding.txtQuestion.setText(String.format("Question" + ((index + 1)) + ":" + questionList.get(index).getQuestion()));
+            binding.checkbox1.setText(questionList.get(index).getOption1());
+            binding.checkbox2.setText(questionList.get(index).getOption2());
+            binding.checkbox3.setText(questionList.get(index).getOption3());
+            binding.checkbox4.setText(questionList.get(index).getOption4());
+
+            clearAllCheckboxes();
+            i=index;
+        }else {
+                binding.btnNext.setText("Done");
+
+
         }
-    private void displayQuestion() {
-        Question currentQuiz = questionList.get(i);
-        binding.txtQuestion.setText(String.format("Question" + ((i + 1)) + ":" + currentQuiz.getQuestion()));
-        binding.checkbox1.setText(currentQuiz.getOption1());
-        binding.checkbox2.setText(currentQuiz.getOption2());
-        binding.checkbox3.setText(currentQuiz.getOption3());
-        binding.checkbox4.setText(currentQuiz.getOption4());
     }
     private int getSelectedOptionsCount() {
         int count = 0;
@@ -148,11 +153,14 @@ public class MainActivity extends AppCompatActivity {
     private boolean areOptionsCorrect(List<CheckBox> selectedCheckboxes, String correctOption1, String correctOption2) {
         if (selectedCheckboxes.size() != 2) {
             return false;
+
         }
+
         String selectedOption1 = selectedCheckboxes.get(0).getText().toString();
         String selectedOption2 = selectedCheckboxes.get(1).getText().toString();
         return (correctOption1.equals(selectedOption1) && correctOption2.equals(selectedOption2)) ||
                 (correctOption1.equals(selectedOption2) && correctOption2.equals(selectedOption1));
+
     }
 }
 
